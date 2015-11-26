@@ -24,12 +24,17 @@ class HomeController extends Controller
     array('number', 'On'),
     array('number', 'Off')
   ));
-       $sql="select sensor_state as sensorstate,count(sensor_state) as count_val,TIME(created_at) as createdat from smoke_sensors 
-       group by createdat ";
+       $sql="select TIME(created_at) as createdat,
+ 
+    COUNT(IF(sensor_state=1, 1, NULL)) AS on_state,
+    COUNT(IF(sensor_state=0, 1, NULL)) AS off_state
+   FROM smoke_sensors GROUP BY created_at";
+       //$sql="select count(sensor_state) as count_val,TIME(created_at) as createdat from smoke_sensors 
+     //  group by createdat ";
       $result=DB::select($sql);
        foreach ($result as $data) {
         $rowData = array(
-            $data->createdat,$data->sensorstate,$data->count_val
+            $data->createdat,$data->on_state,$data->off_state
             );
         $stocksTable->addRow($rowData);
  
