@@ -24,8 +24,8 @@ class HomeController extends Controller
     array('number', 'On'),
     array('number', 'Off')
   ));
-       $sql="select sensor_state as sensorstate,count(*) as count_val,TIME(created_at) as createdat from smoke_sensors 
-       group by sensor_state ";
+       $sql="select sensor_state as sensorstate,count(sensor_state) as count_val,TIME(created_at) as createdat from smoke_sensors 
+       group by createdat ";
       $result=DB::select($sql);
        foreach ($result as $data) {
         $rowData = array(
