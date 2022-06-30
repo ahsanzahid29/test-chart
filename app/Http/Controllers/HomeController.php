@@ -17,6 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        #comment added
        $stocksTable = \Lava::DataTable();  // Lava::DataTable() if using Laravel
        $stocksTable->addColumns(array(
 
